@@ -15,7 +15,9 @@ func findCookie(array []string) {
 	now := time.Now()
 	for _, a := range array {
 		if a == "cookie" {
+			log.Println("Running")
 			log.Println("Found Cookie!")
+			break
 		}
 	}
 	log.Println("Call to find Cooki took", time.Now().Sub(now))
@@ -30,5 +32,6 @@ func logFirstTowBoxes(boxes []int) {
 }
 
 func main() {
-	logFirstTowBoxes(boxes)
+	// logFirstTowBoxes(boxes)
+	findCookie(snacks)
 }
