@@ -47,12 +47,27 @@ func (m *myArray) shiftItems(index int) {
 
 func main() {
 	newArray := NewMyArray()
-	newArray.push("hi")
-	newArray.push("you")
-	newArray.push("!")
-	// newArray.pop()
-	// newArray.pop()
-	newArray.delete(0)
+
+	fmt.Println("----------push---------")
+	fmt.Println(newArray.push("hi"))
+	fmt.Println(newArray.push("you"))
+	fmt.Println(newArray.push("!"))
+	fmt.Println(newArray.push("?"))
+
+	fmt.Println("----------get---------")
+	fmt.Println(newArray.get(0))
+	fmt.Println(newArray.get(1))
+	fmt.Println(newArray.get(2))
+	fmt.Println(newArray.get(3))
+
+	fmt.Println("----------pop---------")
+	fmt.Println(newArray.pop())
+	fmt.Println(newArray.pop())
+
+	fmt.Println("---------delete--------")
+	fmt.Println(newArray.delete(0))
+
+	fmt.Println("----------Done---------")
 	newArray.push("are")
 	newArray.push("nice")
 
