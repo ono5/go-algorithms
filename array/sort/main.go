@@ -24,26 +24,26 @@ func mergeSortedArrays(array1, array2 myArray) myArray {
 	}
 
 	// 配列大 -> 小でループ
-	for _, i := range largeArray {
-		for _, y := range smallArray {
+	for _, b := range largeArray {
+		for _, s := range smallArray {
 
 			// 既に追加したyの値は追加したくないのでスキップ
-			if _, ok := smallArrayMap[y]; ok {
+			if _, ok := smallArrayMap[s]; ok {
 				continue
 			}
 
 			// 配列の大小チェック
-			if i < y {
-				mergeArray = append(mergeArray, i)
-				smallArrayItem = y
+			if b < s {
+				mergeArray = append(mergeArray, b)
+				smallArrayItem = s
 				break
-			} else if i == y {
-				mergeArray = append(mergeArray, i)
+			} else if b == s {
+				mergeArray = append(mergeArray, b)
 				break
 			} else {
-				largeArrayItem = i
-				mergeArray = append(mergeArray, y)
-				smallArrayMap[y] = y // 追加したyの値を記録
+				largeArrayItem = b
+				mergeArray = append(mergeArray, s)
+				smallArrayMap[s] = s // 追加したyの値を記録
 			}
 		}
 	}
