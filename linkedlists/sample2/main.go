@@ -19,10 +19,10 @@ func (l *LinkedList) Last() *Node {
 	return l.tail
 }
 
-func (l *LinkedList) Push(value int) {
+func (l *LinkedList) Push(value string) {
 	node := NewNode(value)
 
-	// First Node?
+	// ヘッダがからの場合は一番最初のNodeということ
 	if l.head == nil {
 		l.head = node
 	} else {
@@ -34,12 +34,12 @@ func (l *LinkedList) Push(value int) {
 }
 
 type Node struct {
-	value int
+	value string
 	next  *Node
 	prev  *Node
 }
 
-func NewNode(value int) *Node {
+func NewNode(value string) *Node {
 	return &Node{
 		value: value,
 		next:  nil,
@@ -57,9 +57,10 @@ func (n *Node) Prev() *Node {
 
 func main() {
 	l := NewLinkedList()
-	l.Push(1)
-	l.Push(2)
-	l.Push(3)
+	l.Push("A")
+	l.Push("B")
+	l.Push("C")
+	l.Push("D")
 
 	n := l.First()
 	for {
