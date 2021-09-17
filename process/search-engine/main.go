@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/bxcodec/faker/v3"
@@ -34,35 +35,41 @@ func init() {
 }
 
 type Worker struct {
+	ch       chan *User
 	database []User
+	name     string
 }
 
-func NewWorker(database []User) *Worker {
-	return &Worker{database: database}
+func NewWorker(ch chan *User, database []User, name string) *Worker {
+	return &Worker{ch: ch, database: database, name: name}
 }
 
-func (w *Worker) Find(email string) *User {
+func (w *Worker) Find(email string) {
 	for i := range w.database {
 		user := &w.database[i]
-		if user.Email == email {
-			return user
+		if strings.Contains(user.Email, email) {
+			fmt.Println(">>", w.name)
+			w.ch <- user
 		}
 	}
-	return nil
 }
 
 func main() {
 	email := os.Args[1]
-	w := NewWorker(Database)
+
+	ch := make(chan *User)
 
 	start := time.Now()
 	fmt.Printf("Looking for %s\n", email)
 
-	user := w.Find(email)
+	go NewWorker(ch, Database[:1000000], "#1").Find(email)
+	go NewWorker(ch, Database[1000000:2000000], "#2").Find(email)
+	go NewWorker(ch, Database[2000000:], "#3").Find(email)
 
-	if user != nil {
+	select {
+	case user := <-ch:
 		fmt.Printf("The email %s is owned by %s\n", email, user.Name)
-	} else {
+	case <-time.After(15 * time.Second):
 		fmt.Printf("The email %s was not found\n", email)
 	}
 
